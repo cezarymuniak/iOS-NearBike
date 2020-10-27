@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		832EB0D4254753C60042A29E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EB0D3254753C60042A29E /* AppDelegate.swift */; };
-		832EB0D6254753C60042A29E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EB0D5254753C60042A29E /* SceneDelegate.swift */; };
 		832EB0D8254753C60042A29E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EB0D7254753C60042A29E /* ViewController.swift */; };
 		832EB0DB254753C60042A29E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 832EB0D9254753C60042A29E /* Main.storyboard */; };
 		832EB0DD254753C80042A29E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 832EB0DC254753C80042A29E /* Assets.xcassets */; };
 		832EB0E0254753C80042A29E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 832EB0DE254753C80042A29E /* LaunchScreen.storyboard */; };
+		832EB0EB254764E10042A29E /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 832EB0EA254764E10042A29E /* TableViewCell.xib */; };
+		832EB0EF254796830042A29E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EB0EE254796830042A29E /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		832EB0D0254753C60042A29E /* iOS-NearBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-NearBike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832EB0D3254753C60042A29E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		832EB0D5254753C60042A29E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		832EB0D7254753C60042A29E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		832EB0DA254753C60042A29E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		832EB0DC254753C80042A29E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		832EB0DF254753C80042A29E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		832EB0E1254753C80042A29E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832EB0EA254764E10042A29E /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		832EB0EE254796830042A29E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,12 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				832EB0D3254753C60042A29E /* AppDelegate.swift */,
-				832EB0D5254753C60042A29E /* SceneDelegate.swift */,
 				832EB0D7254753C60042A29E /* ViewController.swift */,
 				832EB0D9254753C60042A29E /* Main.storyboard */,
 				832EB0DC254753C80042A29E /* Assets.xcassets */,
 				832EB0DE254753C80042A29E /* LaunchScreen.storyboard */,
 				832EB0E1254753C80042A29E /* Info.plist */,
+				832EB0EA254764E10042A29E /* TableViewCell.xib */,
+				832EB0EE254796830042A29E /* TableViewCell.swift */,
 			);
 			path = "iOS-NearBike";
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				832EB0E0254753C80042A29E /* LaunchScreen.storyboard in Resources */,
+				832EB0EB254764E10042A29E /* TableViewCell.xib in Resources */,
 				832EB0DD254753C80042A29E /* Assets.xcassets in Resources */,
 				832EB0DB254753C60042A29E /* Main.storyboard in Resources */,
 			);
@@ -137,9 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				832EB0EF254796830042A29E /* TableViewCell.swift in Sources */,
 				832EB0D8254753C60042A29E /* ViewController.swift in Sources */,
 				832EB0D4254753C60042A29E /* AppDelegate.swift in Sources */,
-				832EB0D6254753C60042A29E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
