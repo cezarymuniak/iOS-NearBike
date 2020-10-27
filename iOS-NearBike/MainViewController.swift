@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     let tview = UINib(nibName: "TableViewCell", bundle: nil).instantiate(withOwner: nil, options: nil).first as! TableViewCell
 
