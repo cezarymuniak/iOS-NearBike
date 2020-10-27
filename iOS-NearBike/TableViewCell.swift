@@ -7,6 +7,16 @@
 
 import Foundation
 import UIKit
-class TableViewCell: UIView {
+class TableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var avaliblePlacesNumberLabel: UILabel!
+    
+    @IBOutlet weak var avalibleBikesNumberLabel: UILabel!
+    
+    @IBOutlet weak var stationNameLabel: UILabel!
+    
+    @IBOutlet weak var stationAddressLabel: UILabel!
+    
+    @IBOutlet weak var distanceLabel: UILabel!
     
 }
