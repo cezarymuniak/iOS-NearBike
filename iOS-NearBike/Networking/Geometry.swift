@@ -1,25 +1,28 @@
 //
 //  Geometry.swift
-//  iOS-NearBike
 //
-//  Created by CM on 27/10/2020.
+//  Created by CM on 28/10/2020
+//  Copyright (c) . All rights reserved.
 //
 
 import Foundation
-struct Geometry : Codable {
-    let coordinates : [Double]?
-    let type : String?
 
-    enum CodingKeys: String, CodingKey {
+struct Geometry: Codable {
 
-        case coordinates = "coordinates"
-        case type = "type"
-    }
+  enum CodingKeys: String, CodingKey {
+    case coordinates
+    case type
+  }
 
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        coordinates = try values.decodeIfPresent([Double].self, forKey: .coordinates)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-    }
+  var coordinates: [Float]?
+  var type: String?
+
+
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    coordinates = try container.decodeIfPresent([Float].self, forKey: .coordinates)
+    type = try container.decodeIfPresent(String.self, forKey: .type)
+  }
 
 }

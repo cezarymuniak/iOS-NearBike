@@ -1,26 +1,28 @@
 //
 //  Crs.swift
-//  iOS-NearBike
 //
-//  Created by CM on 27/10/2020.
+//  Created by CM on 28/10/2020
+//  Copyright (c) . All rights reserved.
 //
 
 import Foundation
 
-struct Crs : Codable {
-    let type : String?
-    let properties : Properties?
+struct Crs: Codable {
 
-    enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey {
+    case properties
+    case type
+  }
 
-        case type = "type"
-        case properties = "properties"
-    }
+  var properties: Properties?
+  var type: String?
 
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-        properties = try values.decodeIfPresent(Properties.self, forKey: .properties)
-    }
+
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    properties = try container.decodeIfPresent(Properties.self, forKey: .properties)
+    type = try container.decodeIfPresent(String.self, forKey: .type)
+  }
 
 }

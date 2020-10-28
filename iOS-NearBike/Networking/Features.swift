@@ -1,31 +1,34 @@
 //
 //  Features.swift
-//  iOS-NearBike
 //
-//  Created by CM on 27/10/2020.
+//  Created by CM on 28/10/2020
+//  Copyright (c) . All rights reserved.
 //
 
 import Foundation
-struct Features : Codable {
-    let geometry : Geometry?
-    let id : String?
-    let type : String?
-    let properties : Properties?
 
-    enum CodingKeys: String, CodingKey {
+struct Features: Codable {
 
-        case geometry = "geometry"
-        case id = "id"
-        case type = "type"
-        case properties = "properties"
-    }
+  enum CodingKeys: String, CodingKey {
+    case id
+    case type
+    case properties
+    case geometry
+  }
 
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        geometry = try values.decodeIfPresent(Geometry.self, forKey: .geometry)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        type = try values.decodeIfPresent(String.self, forKey: .type)
-        properties = try values.decodeIfPresent(Properties.self, forKey: .properties)
-    }
+  var id: String?
+  var type: String?
+  var properties: Properties?
+  var geometry: Geometry?
+
+
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = try container.decodeIfPresent(String.self, forKey: .id)
+    type = try container.decodeIfPresent(String.self, forKey: .type)
+    properties = try container.decodeIfPresent(Properties.self, forKey: .properties)
+    geometry = try container.decodeIfPresent(Geometry.self, forKey: .geometry)
+  }
 
 }

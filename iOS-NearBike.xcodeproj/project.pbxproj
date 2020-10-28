@@ -120,9 +120,9 @@
 			isa = PBXGroup;
 			children = (
 				839FAA402548D8E100D7E64A /* BaseModel.swift */,
+				839FAA492548D96800D7E64A /* Crs.swift */,
 				839FAA432548D92300D7E64A /* Features.swift */,
 				839FAA462548D94500D7E64A /* Geometry.swift */,
-				839FAA492548D96800D7E64A /* Crs.swift */,
 				839FAA4C2548D98900D7E64A /* Properties.swift */,
 			);
 			path = Networking;

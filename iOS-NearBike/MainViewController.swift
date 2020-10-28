@@ -16,7 +16,7 @@ class MainViewController: UIViewController
 
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,6 +54,10 @@ class MainViewController: UIViewController
                 let json = JSON(value)
 
                 json["features"].array?.forEach({(feature) in
+                    
+//                    let properties = 
+                    
+                    
                   let cityLabel =    feature["properties"]["label"]
                     print(cityLabel)
                 })
