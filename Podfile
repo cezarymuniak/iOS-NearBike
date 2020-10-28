@@ -7,5 +7,8 @@ target 'iOS-NearBike' do
 
   # Pods for iOS-NearBike
 pod 'R.swift'
+pod 'Alamofire', '~> 5.2'
+pod 'SwiftyJSON', '~> 4.0'
+
 
 end

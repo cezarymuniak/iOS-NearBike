@@ -7,6 +7,8 @@
 
 import UIKit
 import Rswift
+import Alamofire
+import SwiftyJSON
 
 class MainViewController: UIViewController
 
@@ -34,8 +36,37 @@ class MainViewController: UIViewController
         self.mainTableView.register(UINib(nibName: R.nib.tableViewCell.name, bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.tableViewCell.identifier)
         self.mainTableView.rowHeight = 186
         self.mainTableView.reloadData()
+        getData()
     }
 
+    
+    
+    func getData() {
+        
+        let url = "https://www.poznan.pl/mim/plan/map_service.html?mtype=pub_transport&co=stacje_rowerowe"
+        
+        AF.request(url, method: .get).responseJSON(completionHandler: { (response) in
+            
+            
+            switch response.result {
+            
+            case .success(let value):
+                let json = JSON(value)
+
+                json["features"].array?.forEach({(feature) in
+                  let cityLabel =    feature["properties"]["label"]
+                    print(cityLabel)
+                })
+
+
+            case .failure(let error):
+                    print(error)
+ 
+            }
+            
+        })
+        
+    }
 
     
 }
