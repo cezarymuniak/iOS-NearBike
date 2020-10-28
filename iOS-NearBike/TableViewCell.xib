@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -73,7 +72,7 @@
                         <rect key="frame" x="283.5" y="69" width="15" height="21"/>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
                     <constraint firstItem="dGa-pu-aNS" firstAttribute="centerY" secondItem="rGP-2h-eSb" secondAttribute="centerY" id="B2b-Wk-Eix"/>
                     <constraint firstItem="fOv-4z-zfm" firstAttribute="top" secondItem="6mh-ar-ByD" secondAttribute="bottom" constant="7" id="HKk-2z-Epo"/>
@@ -121,8 +120,5 @@
         <image name="bike" width="20" height="19"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="padlock" width="15" height="21"/>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

@@ -9,13 +9,13 @@ import Foundation
 
 struct Properties: Codable {
 
-  enum CodingKeys: String, CodingKey {
-    case bikeRacks = "bike_racks"
-    case bikes
-    case label
-    case updated
-    case freeRacks = "free_racks"
-  }
+//  enum CodingKeys: String, CodingKey {
+//    case bikeRacks = "bike_racks"
+//    case bikes
+//    case label
+//    case updated
+//    case freeRacks = "free_racks"
+//  }
 
   var bikeRacks: String?
   var bikes: String?
@@ -24,14 +24,14 @@ struct Properties: Codable {
   var freeRacks: String?
 
 
-
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    bikeRacks = try container.decodeIfPresent(String.self, forKey: .bikeRacks)
-    bikes = try container.decodeIfPresent(String.self, forKey: .bikes)
-    label = try container.decodeIfPresent(String.self, forKey: .label)
-    updated = try container.decodeIfPresent(String.self, forKey: .updated)
-    freeRacks = try container.decodeIfPresent(String.self, forKey: .freeRacks)
-  }
+//
+//  init(from decoder: Decoder) throws {
+//    let container = try decoder.container(keyedBy: CodingKeys.self)
+//    bikeRacks = try container.decodeIfPresent(String.self, forKey: .bikeRacks)
+//    bikes = try container.decodeIfPresent(String.self, forKey: .bikes)
+//    label = try container.decodeIfPresent(String.self, forKey: .label)
+//    updated = try container.decodeIfPresent(String.self, forKey: .updated)
+//    freeRacks = try container.decodeIfPresent(String.self, forKey: .freeRacks)
+//  }
 
 }
