@@ -89,12 +89,21 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
+    /// Storyboard `DetailsViewController`.
+    static let detailsViewController = _R.storyboard.detailsViewController()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "DetailsViewController", bundle: ...)`
+    static func detailsViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.detailsViewController)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -155,10 +164,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 2 nibs.
   struct nib {
     /// Nib `TableViewCell`.
     static let tableViewCell = _R.nib._TableViewCell()
+    /// Nib `TopBar`.
+    static let topBar = _R.nib._TopBar()
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "TableViewCell", in: bundle)`
@@ -168,8 +179,20 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "TopBar", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.topBar) instead")
+    static func topBar(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.topBar)
+    }
+    #endif
+
     static func tableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TableViewCell? {
       return R.nib.tableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TableViewCell
+    }
+
+    static func topBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.topBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
 
     fileprivate init() {}
@@ -210,6 +233,7 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _TableViewCell.validate()
+      try _TopBar.validate()
     }
 
     struct _TableViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
@@ -234,6 +258,23 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    struct _TopBar: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "TopBar"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "arrow.left", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'arrow.left' is used in nib 'TopBar', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+
     fileprivate init() {}
   }
   #endif
@@ -242,12 +283,32 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try detailsViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
       try mainViewController.validate()
       #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct detailsViewController: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "DetailsViewController"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "bike", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bike' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "circle.fill", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'circle.fill' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "padlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'padlock' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -267,7 +328,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct mainViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = MainViewController
+      typealias InitialController = UIKit.UINavigationController
 
       let bundle = R.hostingBundle
       let name = "MainViewController"

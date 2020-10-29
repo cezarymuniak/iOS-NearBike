@@ -22,6 +22,8 @@ class MainViewController: UIViewController
     var addressLabel = ""
     var stationsProperties: [Properties] = []
     
+    @IBOutlet weak var topBar: TopBar!
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
