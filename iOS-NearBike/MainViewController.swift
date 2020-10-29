@@ -10,30 +10,31 @@ import Rswift
 import Alamofire
 import SwiftyJSON
 
-class MainViewController: UIViewController
+import MapKit
+import CoreLocation
 
-, UITableViewDelegate,UITableViewDataSource
+class MainViewController: UIViewController
+                          
+                          , UITableViewDelegate,UITableViewDataSource
 
 {
     
-    
+    var addressLabel = ""
     var stationsProperties: [Properties] = []
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     //   return 5
         
         return self.stationsProperties.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mainTableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.tableViewCell, for: indexPath)
         
         
         let station: Properties
         station = self.stationsProperties[indexPath.row]
-        
-        
+        let  address =    self.addressLabel
         
         
         
@@ -41,9 +42,9 @@ class MainViewController: UIViewController
         
         cell?.avaliblePlacesNumberLabel.text = station.freeRacks
         
-   //     cell?.distanceLabel.text = station.
+        //     cell?.distanceLabel.text = station.
         
-    //    cell?.stationAddressLabel.text = station.bikeRacks
+        cell?.stationAddressLabel.text = address
         
         cell?.stationNameLabel.text = station.label
         
@@ -51,19 +52,18 @@ class MainViewController: UIViewController
     }
 
     
-
-
     @IBOutlet weak var mainTableView: UITableView!
     
     override func viewDidLoad() {
-       // super.viewDidLoad()
+        // super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.mainTableView.register(UINib(nibName: R.nib.tableViewCell.name, bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.tableViewCell.identifier)
         self.mainTableView.rowHeight = 186
-        self.mainTableView.reloadData()
         getData()
+        self.mainTableView.reloadData()
+        
     }
-
+    
     
     
     func getData() {
@@ -77,40 +77,71 @@ class MainViewController: UIViewController
             
             case .success(let value):
                 let json = JSON(value)
-
+                
                 json["features"].array?.forEach({(feature) in
                     
                     
-                  let cityLabel =    feature["properties"]["label"].stringValue
+                    let cityLabel =    feature["properties"]["label"].stringValue
                     let bikes =    feature["properties"]["bikes"].stringValue
-
+                    
                     let bikeRacks =    feature["properties"]["bike_racks"].stringValue
-
+                    
                     let updated =    feature["properties"]["updated"].stringValue
-
+                    
                     let freeRacks =    feature["properties"]["free_racks"].stringValue
-
+                    
                     
                     
                     let properties = Properties(bikeRacks: bikeRacks, bikes: bikes  , label: cityLabel , updated: updated , freeRacks: freeRacks )
                     
                     
+                    let coordinates = feature["geometry"]["coordinates"].arrayValue
+                    let longitude = coordinates.first?.doubleValue
+                    let latitude = coordinates.last?.doubleValue
+                    
+                    
                     self.stationsProperties.append(properties)
-
-               //    print(json)
+                    
+                    print(coordinates)
+                    
+                    self.convertLatLongToAddress(latitude: latitude!, longitude: longitude!)
                 })
-
+     
                 self.mainTableView.reloadData()
-
+                
             case .failure(let error):
-                    print(error)
- 
+                print(error)
             }
-            
+
         })
-        
+
     }
 
-    
+    func convertLatLongToAddress(latitude:Double, longitude:Double) {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { [self] (placemarks, error) -> Void in
+            
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            if placeMark != nil {
+                let name = placeMark.name
+                
+                let city = placeMark.subAdministrativeArea
+                self.addressLabel = name! + ", " + city!
+                
+                print(" nizej name " )
+                
+                print(self.addressLabel)
+                
+                self.mainTableView.reloadData()
+                
+            }
+ 
+        })
+    }
+
 }
 
