@@ -39,8 +39,8 @@
                         <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dGa-pu-aNS">
-                        <rect key="frame" x="59" y="49.5" width="3" height="2"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="dGa-pu-aNS">
+                        <rect key="frame" x="59" y="49" width="3" height="3"/>
                         <color key="tintColor" red="0.73725490196078436" green="0.73725490196078436" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="3" id="Af1-Z0-cwt"/>
@@ -118,7 +118,7 @@
     </objects>
     <resources>
         <image name="bike" width="20" height="19"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="dot" width="3" height="3"/>
         <image name="padlock" width="15" height="21"/>
     </resources>
 </document>

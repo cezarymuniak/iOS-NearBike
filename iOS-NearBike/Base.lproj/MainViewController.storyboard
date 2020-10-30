@@ -50,7 +50,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.96863657240000001" green="0.96861571069999997" blue="0.96861976390000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="BLQ-Mo-2so" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1Cr-dY-dIy"/>
                             <constraint firstItem="BLQ-Mo-2so" firstAttribute="top" secondItem="ivU-Wc-2GB" secondAttribute="bottom" id="7GU-M3-nWm"/>
@@ -66,11 +66,22 @@
                     <connections>
                         <outlet property="mainTableView" destination="BLQ-Mo-2so" id="MPj-P5-aPe"/>
                         <outlet property="topBar" destination="ivU-Wc-2GB" id="peN-JM-3vx"/>
+                        <segue destination="sgG-c1-4oY" kind="show" identifier="DetailView" id="827-fr-FLX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="104.46428571428571"/>
+        </scene>
+        <!--DetailsViewController-->
+        <scene sceneID="uOt-o0-c0l">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailsViewController" id="sgG-c1-4oY" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="4fS-If-ErB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMb-A7-zoV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="938" y="89"/>
         </scene>
     </scenes>
 </document>

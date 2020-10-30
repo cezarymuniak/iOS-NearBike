@@ -89,6 +89,30 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
+  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
+  struct segue {
+    /// This struct is generated for `MainViewController`, and contains static references to 1 segues.
+    struct mainViewController {
+      /// Segue identifier `DetailView`.
+      static let detailView: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, MainViewController, DetailsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "DetailView")
+
+      #if os(iOS) || os(tvOS)
+      /// Optionally returns a typed version of segue `DetailView`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func detailView(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, MainViewController, DetailsViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.mainViewController.detailView, segue: segue)
+      }
+      #endif
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+  #endif
+
+  #if os(iOS) || os(tvOS)
   /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
     /// Storyboard `DetailsViewController`.
@@ -140,17 +164,35 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 4 images.
   struct image {
+    /// Image `back`.
+    static let back = Rswift.ImageResource(bundle: R.hostingBundle, name: "back")
     /// Image `bike`.
     static let bike = Rswift.ImageResource(bundle: R.hostingBundle, name: "bike")
+    /// Image `dot`.
+    static let dot = Rswift.ImageResource(bundle: R.hostingBundle, name: "dot")
     /// Image `padlock`.
     static let padlock = Rswift.ImageResource(bundle: R.hostingBundle, name: "padlock")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "back", bundle: ..., traitCollection: ...)`
+    static func back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.back, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "bike", bundle: ..., traitCollection: ...)`
     static func bike(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.bike, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "dot", bundle: ..., traitCollection: ...)`
+    static func dot(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dot, compatibleWith: traitCollection)
     }
     #endif
 
@@ -249,7 +291,7 @@ struct _R: Rswift.Validatable {
 
       static func validate() throws {
         if UIKit.UIImage(named: "bike", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bike' is used in nib 'TableViewCell', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "circle.fill", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'circle.fill' is used in nib 'TableViewCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "dot", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'dot' is used in nib 'TableViewCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "padlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'padlock' is used in nib 'TableViewCell', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
@@ -267,7 +309,7 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
-        if UIKit.UIImage(named: "arrow.left", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'arrow.left' is used in nib 'TopBar', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "back", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'back' is used in nib 'TopBar', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -294,16 +336,24 @@ struct _R: Rswift.Validatable {
     }
 
     #if os(iOS) || os(tvOS)
-    struct detailsViewController: Rswift.StoryboardResourceType, Rswift.Validatable {
+    struct detailsViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = DetailsViewController
+
       let bundle = R.hostingBundle
+      let detailsViewControllerv = StoryboardViewControllerResource<DetailsViewController>(identifier: "DetailsViewControllerv")
       let name = "DetailsViewController"
+
+      func detailsViewControllerv(_: Void = ()) -> DetailsViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: detailsViewControllerv)
+      }
 
       static func validate() throws {
         if UIKit.UIImage(named: "bike", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bike' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "circle.fill", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'circle.fill' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "dot", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'dot' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
         if UIKit.UIImage(named: "padlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'padlock' is used in storyboard 'DetailsViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
+        if _R.storyboard.detailsViewController().detailsViewControllerv() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'detailsViewControllerv' could not be loaded from storyboard 'DetailsViewController' as 'DetailsViewController'.") }
       }
 
       fileprivate init() {}

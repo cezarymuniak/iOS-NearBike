@@ -38,7 +38,7 @@ class MainViewController: UIViewController
         station = self.stationsProperties[indexPath.row]
         let  address =    self.addressLabel
         
-        
+        cell?.selectionStyle = .none
         
         cell?.avalibleBikesNumberLabel.text = station.bikeRacks
         
@@ -50,6 +50,8 @@ class MainViewController: UIViewController
         
         cell?.stationNameLabel.text = station.label
         
+        cell?.contentView.layer.masksToBounds = true
+        
         return cell!
     }
 
@@ -60,6 +62,8 @@ class MainViewController: UIViewController
         // super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.mainTableView.register(UINib(nibName: R.nib.tableViewCell.name, bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.tableViewCell.identifier)
+        
+        topBar.backButton.isHidden = true
         self.mainTableView.rowHeight = 186
         getData()
         self.mainTableView.reloadData()
@@ -145,5 +149,52 @@ class MainViewController: UIViewController
         })
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         performSegue(withIdentifier: "DetailView", sender: self)
+     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "DetailView" {
+            
+            if let detailsViewController =  segue.destination as? DetailsViewController {
+                
+                if let row = mainTableView.indexPathForSelectedRow?.row {
+                    
+                    detailsViewController.avalibleBikesNumber = stationsProperties[row].bikeRacks!
+                    
+                    
+                    detailsViewController.avaliblePlacesNumber = stationsProperties[row].freeRacks!
+                    
+                    detailsViewController.distance = "station.256"
+                    
+                   detailsViewController.stationAddress = "address"
+                    
+                    detailsViewController.stationName = stationsProperties[row].label!
+                    
+                    
+                    
+                    
+                    // tutaj pobrane dane stad polaczyc z kolejnym widokiem
+                    
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
