@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Coordinates: Codable {
+struct Coordinates {
 
 
 
-  var coordinates:  String?
+  var coordinates:  [Any]?
 
 
 

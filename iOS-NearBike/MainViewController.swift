@@ -13,11 +13,7 @@ import SwiftyJSON
 import MapKit
 import CoreLocation
 
-class MainViewController: UIViewController
-                          
-                          , UITableViewDelegate,UITableViewDataSource
-
-{
+class MainViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
     var addressLabel = ""
     var stationsProperties: [Properties] = []
@@ -37,7 +33,10 @@ class MainViewController: UIViewController
         
         let station: Properties
         station = self.stationsProperties[indexPath.row]
-        let  address =    self.addressLabel
+     //   let  address =    self.addressLabel
+        
+       let testX: Coordinates
+       testX  = self.stationsCoordinates[indexPath.row]
         
         
         cell?.selectionStyle = .none
@@ -46,9 +45,8 @@ class MainViewController: UIViewController
         
         cell?.avaliblePlacesNumberLabel.text = station.freeRacks
         
-        //     cell?.distanceLabel.text = station.
         
-        cell?.stationAddressLabel.text = address
+       cell?.stationAddressLabel.text = testX.coordinates?.description
         
         cell?.stationNameLabel.text = station.label
         
@@ -61,8 +59,7 @@ class MainViewController: UIViewController
     @IBOutlet weak var mainTableView: UITableView!
     
     override func viewDidLoad() {
-        // super.viewDidLoad()
-        // Do any additional setup after loading the view.
+         super.viewDidLoad()
         self.mainTableView.register(UINib(nibName: R.nib.tableViewCell.name, bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.tableViewCell.identifier)
         
         topBar.backButton.isHidden = true
@@ -79,8 +76,7 @@ class MainViewController: UIViewController
         let url = "https://www.poznan.pl/mim/plan/map_service.html?mtype=pub_transport&co=stacje_rowerowe"
         
         AF.request(url, method: .get).responseJSON(completionHandler: { (response) in
-            
-            
+
             switch response.result {
             
             case .success(let value):
@@ -103,16 +99,19 @@ class MainViewController: UIViewController
                     let properties = Properties(bikeRacks: bikeRacks, bikes: bikes  , label: cityLabel , updated: updated , freeRacks: freeRacks )
                     
                     
-                    let coordinates = feature["geometry"]["coordinates"].arrayValue
-                    let longitude = coordinates.first?.doubleValue
-                    let latitude = coordinates.last?.doubleValue
+                    let coordinates = feature["geometry"]["coordinates"].arrayObject
                     
+                  //  let longitude = coordinates.
+                 //   let latitude = coordinates.doubleValue
+//
+                    
+                    let test1 = Coordinates(coordinates: coordinates)
+                    
+                    self.stationsCoordinates.append(test1)
                     
                     self.stationsProperties.append(properties)
                     
-                    print(coordinates)
-                    
-                    self.convertLatLongToAddress(latitude: latitude!, longitude: longitude!)
+                 //   self.convertLatLongToAddress(latitude: latitude!, longitude: longitude!)
                 })
      
                 self.mainTableView.reloadData()
@@ -125,39 +124,38 @@ class MainViewController: UIViewController
 
     }
 
-    func convertLatLongToAddress(latitude:Double, longitude:Double) {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { [self] (placemarks, error) -> Void in
-            
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            
-            if placeMark != nil {
-                let name = placeMark.name
-                
-                let city = placeMark.subAdministrativeArea
-              //  self.addressLabel
-                    
-                let x     = name! + ", " + city!
-                
-                let y  = Coordinates(coordinates: x)
-                
-                self.stationsCoordinates.append(y)
-                
-                print(" nizej stationsCoordinates " )
-                
-                print(self.stationsCoordinates)
-                
-                print(" nizej stationsCoordinates " )
-                
-                self.mainTableView.reloadData()
-                
-            }
- 
-        })
-    }
+//    func convertLatLongToAddress(latitude:Double, longitude:Double) {
+//        let geoCoder = CLGeocoder()
+//        let location = CLLocation(latitude: latitude, longitude: longitude)
+//
+//        geoCoder.reverseGeocodeLocation(location, completionHandler: { [self] (placemarks, error) -> Void in
+//
+//            var placeMark: CLPlacemark!
+//            placeMark = placemarks?[0]
+//
+//            if placeMark != nil {
+//                let name = placeMark.name
+//
+//                let city = placeMark.subAdministrativeArea
+//
+//                let x     = name! + ", " + city!
+//
+//                let y  = Coordinates(coordinates: x)
+//
+//                self.stationsCoordinates.append(y)
+//
+//                print(" nizej stationsCoordinates " )
+//
+//                print(self.stationsCoordinates)
+//
+//                print(" nizej stationsCoordinates " )
+//
+//                self.mainTableView.reloadData()
+//
+//            }
+//
+//        })
+//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          performSegue(withIdentifier: "DetailView", sender: self)
