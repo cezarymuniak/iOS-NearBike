@@ -17,8 +17,6 @@ struct Crs: Codable {
   var properties: Properties?
   var type: String?
 
-
-
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     properties = try container.decodeIfPresent(Properties.self, forKey: .properties)

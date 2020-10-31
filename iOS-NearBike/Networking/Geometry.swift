@@ -17,8 +17,6 @@ struct Geometry: Codable {
   var coordinates: [Float]?
   var type: String?
 
-
-
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     coordinates = try container.decodeIfPresent([Float].self, forKey: .coordinates)

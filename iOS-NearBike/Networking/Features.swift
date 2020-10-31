@@ -21,8 +21,6 @@ struct Features: Codable {
   var properties: Properties?
   var geometry: Geometry?
 
-
-
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     id = try container.decodeIfPresent(String.self, forKey: .id)

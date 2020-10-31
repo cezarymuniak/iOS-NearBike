@@ -9,10 +9,6 @@ import Foundation
 
 struct Coordinates {
 
-
-
-  var coordinates:  [Any]?
-
-
+  var coordinates: [Any]?
 
 }

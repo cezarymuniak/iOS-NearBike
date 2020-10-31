@@ -19,8 +19,6 @@ struct BaseModel: Codable {
   var type: String?
   var features: [Features]?
 
-
-
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     crs = try container.decodeIfPresent(Crs.self, forKey: .crs)

@@ -23,7 +23,6 @@ struct Properties: Codable {
   var updated: String?
   var freeRacks: String?
 
-
 //
 //  init(from decoder: Decoder) throws {
 //    let container = try decoder.container(keyedBy: CodingKeys.self)
