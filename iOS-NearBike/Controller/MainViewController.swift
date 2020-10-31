@@ -13,39 +13,39 @@ import MapKit
 import CoreLocation
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     var addressLabel = ""
     var stationsProperties: [Properties] = []
     var stationsCoordinates: [Coordinates] = []
-    
+
     @IBOutlet weak var topBar: TopBar!
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         return self.stationsProperties.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mainTableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.tableViewCell, for: indexPath)
-        
+
         let station: Properties
         station = self.stationsProperties[indexPath.row]
-        
+
         let testX: Coordinates
         testX  = self.stationsCoordinates[indexPath.row]
-        
+
         cell?.selectionStyle = .none
         cell?.avalibleBikesNumberLabel.text = station.bikeRacks
         cell?.avaliblePlacesNumberLabel.text = station.freeRacks
         cell?.stationAddressLabel.text = testX.coordinates?.description
         cell?.stationNameLabel.text = station.label
         cell?.contentView.layer.masksToBounds = true
-        
+
         return cell!
     }
-    
+
     @IBOutlet weak var mainTableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainTableView.register(UINib(nibName: R.nib.tableViewCell.name, bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.tableViewCell.identifier)
@@ -54,7 +54,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         getData()
         self.mainTableView.reloadData()
     }
-    
+
     func getData() {
         let url = "https://www.poznan.pl/mim/plan/map_service.html?mtype=pub_transport&co=stacje_rowerowe"
         AF.request(url, method: .get).responseJSON(completionHandler: { (response) in
@@ -69,23 +69,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let freeRacks =    feature["properties"]["free_racks"].stringValue
                     let properties = Properties(bikeRacks: bikeRacks, bikes: bikes, label: cityLabel, updated: updated, freeRacks: freeRacks )
                     let coordinates = feature["geometry"]["coordinates"].arrayObject
-                    
+
                     let test1 = Coordinates(coordinates: coordinates)
-                    
+
                     self.stationsCoordinates.append(test1)
                     self.stationsProperties.append(properties)
-                    
+
                     //   self.convertLatLongToAddress(latitude: latitude!, longitude: longitude!)
                 })
-                
+
                 self.mainTableView.reloadData()
-                
+
             case .failure(let error):
                 print(error)
             }
         })
     }
-    
+
     //    func convertLatLongToAddress(latitude:Double, longitude:Double) {
     //        let geoCoder = CLGeocoder()
     //        let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -118,13 +118,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     //
     //        })
     //    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "DetailView", sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "DetailView" {
             if let detailsViewController =  segue.destination as? DetailsViewController {
                 if let row = mainTableView.indexPathForSelectedRow?.row {

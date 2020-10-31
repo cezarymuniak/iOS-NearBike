@@ -108,6 +108,7 @@
 				8368AD19254E1A6100FEF386 /* View */,
 				8368AD1A254E1A6700FEF386 /* Controller */,
 				839FAA3125489D1C00D7E64A /* Resources */,
+				832EB0E1254753C80042A29E /* Info.plist */,
 			);
 			path = "iOS-NearBike";
 			sourceTree = "<group>";
@@ -156,7 +157,6 @@
 			children = (
 				832EB0D3254753C60042A29E /* AppDelegate.swift */,
 				832EB0DC254753C80042A29E /* Assets.xcassets */,
-				832EB0E1254753C80042A29E /* Info.plist */,
 				839FAA3825489E4500D7E64A /* R.generated.swift */,
 			);
 			path = Resources;
