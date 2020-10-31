@@ -104,27 +104,59 @@
 		832EB0D2254753C60042A29E /* iOS-NearBike */ = {
 			isa = PBXGroup;
 			children = (
-				839FAA3F2548D8BE00D7E64A /* Networking */,
+				8368AD18254E1A5700FEF386 /* Model */,
+				8368AD19254E1A6100FEF386 /* View */,
+				8368AD1A254E1A6700FEF386 /* Controller */,
 				839FAA3125489D1C00D7E64A /* Resources */,
-				832EB0D3254753C60042A29E /* AppDelegate.swift */,
-				832EB0D7254753C60042A29E /* MainViewController.swift */,
-				832EB0D9254753C60042A29E /* MainViewController.storyboard */,
-				832EB0DC254753C80042A29E /* Assets.xcassets */,
-				832EB0DE254753C80042A29E /* LaunchScreen.storyboard */,
-				832EB0E1254753C80042A29E /* Info.plist */,
-				832EB0EA254764E10042A29E /* TableViewCell.xib */,
-				832EB0EE254796830042A29E /* TableViewCell.swift */,
-				83654752254A66A300DF4DB0 /* DetailsViewController.swift */,
-				83654755254A670700DF4DB0 /* DetailsViewController.storyboard */,
-				83654758254A68E800DF4DB0 /* TopBar.xib */,
-				8365475B254A68F800DF4DB0 /* TopBar.swift */,
 			);
 			path = "iOS-NearBike";
+			sourceTree = "<group>";
+		};
+		8368AD18254E1A5700FEF386 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				839FAA3F2548D8BE00D7E64A /* Networking */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8368AD19254E1A6100FEF386 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				832EB0DE254753C80042A29E /* LaunchScreen.storyboard */,
+				832EB0D9254753C60042A29E /* MainViewController.storyboard */,
+				83654755254A670700DF4DB0 /* DetailsViewController.storyboard */,
+				8368AD1B254E1A9500FEF386 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8368AD1A254E1A6700FEF386 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8365475B254A68F800DF4DB0 /* TopBar.swift */,
+				832EB0EE254796830042A29E /* TableViewCell.swift */,
+				83654752254A66A300DF4DB0 /* DetailsViewController.swift */,
+				832EB0D7254753C60042A29E /* MainViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8368AD1B254E1A9500FEF386 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				83654758254A68E800DF4DB0 /* TopBar.xib */,
+				832EB0EA254764E10042A29E /* TableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		839FAA3125489D1C00D7E64A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				832EB0D3254753C60042A29E /* AppDelegate.swift */,
+				832EB0DC254753C80042A29E /* Assets.xcassets */,
+				832EB0E1254753C80042A29E /* Info.plist */,
 				839FAA3825489E4500D7E64A /* R.generated.swift */,
 			);
 			path = Resources;
