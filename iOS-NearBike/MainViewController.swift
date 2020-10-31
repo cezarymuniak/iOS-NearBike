@@ -21,6 +21,7 @@ class MainViewController: UIViewController
     
     var addressLabel = ""
     var stationsProperties: [Properties] = []
+    var stationsCoordinates: [Coordinates] = []
     
     @IBOutlet weak var topBar: TopBar!
     
@@ -37,6 +38,7 @@ class MainViewController: UIViewController
         let station: Properties
         station = self.stationsProperties[indexPath.row]
         let  address =    self.addressLabel
+        
         
         cell?.selectionStyle = .none
         
@@ -136,11 +138,19 @@ class MainViewController: UIViewController
                 let name = placeMark.name
                 
                 let city = placeMark.subAdministrativeArea
-                self.addressLabel = name! + ", " + city!
+              //  self.addressLabel
+                    
+                let x     = name! + ", " + city!
                 
-                print(" nizej name " )
+                let y  = Coordinates(coordinates: x)
                 
-                print(self.addressLabel)
+                self.stationsCoordinates.append(y)
+                
+                print(" nizej stationsCoordinates " )
+                
+                print(self.stationsCoordinates)
+                
+                print(" nizej stationsCoordinates " )
                 
                 self.mainTableView.reloadData()
                 
