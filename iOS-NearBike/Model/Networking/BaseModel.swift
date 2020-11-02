@@ -9,21 +9,22 @@ import Foundation
 
 struct BaseModel: Codable {
 
-  enum CodingKeys: String, CodingKey {
-    case crs
-    case type
-    case features
-  }
+    let features: [Features]?
+    let crs: Crs?
+    let type: String?
 
-  var crs: Crs?
-  var type: String?
-  var features: [Features]?
+    enum CodingKeys: String, CodingKey {
 
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    crs = try container.decodeIfPresent(Crs.self, forKey: .crs)
-    type = try container.decodeIfPresent(String.self, forKey: .type)
-    features = try container.decodeIfPresent([Features].self, forKey: .features)
-  }
+        case features = "features"
+        case crs = "crs"
+        case type = "type"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        features = try values.decodeIfPresent([Features].self, forKey: .features)
+        crs = try values.decodeIfPresent(Crs.self, forKey: .crs)
+        type = try values.decodeIfPresent(String.self, forKey: .type)
+    }
 
 }

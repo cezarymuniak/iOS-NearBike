@@ -15,30 +15,55 @@ import CoreLocation
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var addressLabel = ""
+   var bikeRacksLabel = ""
     var stationsProperties: [Properties] = []
-    var stationsCoordinates: [Coordinates] = []
+    var geometry: [Geometry] = []
+    var features: [Features] = []
+    var base: [BaseModel] = []
 
     @IBOutlet weak var topBar: TopBar!
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return self.stationsProperties.count
+        return self.features.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mainTableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.tableViewCell, for: indexPath)
+        let item = features[indexPath.row]
 
-        let station: Properties
-        station = self.stationsProperties[indexPath.row]
+        func convertAddressToCoordinates() {
+            for address in item.geometry?.coordinates ?? [Double]() {
+                let geocoder = CLGeocoder()
+                let lat = item.geometry?.coordinates?.last
+                let lon = item.geometry?.coordinates?.first
+                let location = CLLocation(latitude: lat!, longitude: lon!)
 
-        let testX: Coordinates
-        testX  = self.stationsCoordinates[indexPath.row]
+                geocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+                    var placemark: CLPlacemark!
 
+                    if error == nil && placemarks!.isEmpty  == false {
+                        placemark = placemarks![0] as CLPlacemark
+                        var addressString = ""
+                        if placemark.subAdministrativeArea != nil && placemark.name != nil {
+                            addressString = placemark.name! + ", " +
+                                placemark.subAdministrativeArea!
+                        }
+                        self.addressLabel = addressString
+
+                       cell?.stationAddressLabel.text = self.addressLabel
+                    }
+                })
+            }
+        }
+        convertAddressToCoordinates()
         cell?.selectionStyle = .none
-        cell?.avalibleBikesNumberLabel.text = station.bikeRacks
-        cell?.avaliblePlacesNumberLabel.text = station.freeRacks
-        cell?.stationAddressLabel.text = testX.coordinates?.description
-        cell?.stationNameLabel.text = station.label
+        bikeRacksLabel = (item.properties?.bikeRacks)!
+
+        cell?.avalibleBikesNumberLabel.text = bikeRacksLabel
+
+        cell?.avaliblePlacesNumberLabel.text = item.properties?.freeRacks
+        cell?.stationNameLabel.text = item.properties?.label
+
         cell?.contentView.layer.masksToBounds = true
 
         return cell!
@@ -52,89 +77,34 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         topBar.backButton.isHidden = true
         self.mainTableView.rowHeight = 186
         getData()
-        self.mainTableView.reloadData()
     }
 
     func getData() {
         let url = "https://www.poznan.pl/mim/plan/map_service.html?mtype=pub_transport&co=stacje_rowerowe"
-        AF.request(url, method: .get).responseJSON(completionHandler: { (response) in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                json["features"].array?.forEach({(feature) in
-                    let cityLabel =    feature["properties"]["label"].stringValue
-                    let bikes =    feature["properties"]["bikes"].stringValue
-                    let bikeRacks =    feature["properties"]["bike_racks"].stringValue
-                    let updated =    feature["properties"]["updated"].stringValue
-                    let freeRacks =    feature["properties"]["free_racks"].stringValue
-                    let properties = Properties(bikeRacks: bikeRacks, bikes: bikes, label: cityLabel, updated: updated, freeRacks: freeRacks )
-                    let coordinates = feature["geometry"]["coordinates"].arrayObject
 
-                    let test1 = Coordinates(coordinates: coordinates)
-
-                    self.stationsCoordinates.append(test1)
-                    self.stationsProperties.append(properties)
-
-                    //   self.convertLatLongToAddress(latitude: latitude!, longitude: longitude!)
-                })
-
-                self.mainTableView.reloadData()
-
-            case .failure(let error):
-                print(error)
-            }
-        })
-    }
-
-    //    func convertLatLongToAddress(latitude:Double, longitude:Double) {
-    //        let geoCoder = CLGeocoder()
-    //        let location = CLLocation(latitude: latitude, longitude: longitude)
-    //
-    //        geoCoder.reverseGeocodeLocation(location, completionHandler: { [self] (placemarks, error) -> Void in
-    //
-    //            var placeMark: CLPlacemark!
-    //            placeMark = placemarks?[0]
-    //
-    //            if placeMark != nil {
-    //                let name = placeMark.name
-    //
-    //                let city = placeMark.subAdministrativeArea
-    //
-    //                let x     = name! + ", " + city!
-    //
-    //                let y  = Coordinates(coordinates: x)
-    //
-    //                self.stationsCoordinates.append(y)
-    //
-    //                print(" nizej stationsCoordinates " )
-    //
-    //                print(self.stationsCoordinates)
-    //
-    //                print(" nizej stationsCoordinates " )
-    //
-    //                self.mainTableView.reloadData()
-    //
-    //            }
-    //
-    //        })
-    //    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "DetailView", sender: self)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "DetailView" {
-            if let detailsViewController =  segue.destination as? DetailsViewController {
-                if let row = mainTableView.indexPathForSelectedRow?.row {
-                    detailsViewController.avalibleBikesNumber = stationsProperties[row].bikeRacks!
-                    detailsViewController.avaliblePlacesNumber = stationsProperties[row].freeRacks!
-                    detailsViewController.distance = "station.256"
-                    detailsViewController.stationAddress = "address"
-                    detailsViewController.stationName = stationsProperties[row].label!
-                }
-            }
+        AF.request(url).validate().responseDecodable(of: BaseModel.self) { (response) in
+            guard let data = response.value else { return }
+            self.features = data.features!
+          self.mainTableView.reloadData()
         }
     }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: R.segue.mainViewController.detailView.identifier, sender: self)
+//    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == R.segue.mainViewController.detailView.identifier {
+//            if let detailsViewController =  segue.destination as? DetailsViewController {
+//                if let row = mainTableView.indexPathForSelectedRow {
+//                    detailsViewController.avalibleBikesNumber =  bikeRacksLabel
+//                   // detailsViewController.avaliblePlacesNumber = stationsProperties[row].freeRacks!
+//                    detailsViewController.distance = "station.256"
+//                    detailsViewController.stationAddress = "address"
+//                  //  detailsViewController.stationName = stationsProperties[row].label!
+//                }
+//            }
+//        }
+//    }
 }
