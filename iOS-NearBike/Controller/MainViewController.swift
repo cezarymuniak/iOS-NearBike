@@ -90,6 +90,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     detailsViewController.distance = "500m"
                     dest2 =  (features[row].geometry?.coordinates.first)!
                     dest1 =  (features[row].geometry?.coordinates.last)!
+                    detailsViewController.latitude = dest1
+                    detailsViewController.longitude = dest2
                     let properDestination = String(dest1.description + ", " + dest2.description)
                     detailsViewController.stationAddress = "address : \(properDestination)"
                     detailsViewController.stationName = (features[row].properties?.label!)!
@@ -105,7 +107,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("myLatitude :\(myLatitude)")
         print("myLongitude :\(myLongitude)")
     }
-    
+
     // TODO: converting cordinates to address
     //    func convertCoordinatessToAddresss() {
     //        let geocoder = CLGeocoder()
@@ -128,7 +130,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     //            }
     //        })
     //    }
-
 
     //TODO: Distance between locations.
 //

@@ -122,6 +122,7 @@
                         <outlet property="avalibleBikesNumberLabel" destination="1V5-il-N5G" id="FFz-1d-jrn"/>
                         <outlet property="avaliblePlacesNumberLabel" destination="7j8-1M-oVe" id="H3l-Wa-rq3"/>
                         <outlet property="distanceLabel" destination="Mgr-0Y-U5L" id="opx-Aj-GjG"/>
+                        <outlet property="mapView" destination="2Rc-zO-Q1I" id="pDP-JJ-iSl"/>
                         <outlet property="stationAddressLabel" destination="Cbf-n7-4Hl" id="YZN-Fw-hSW"/>
                         <outlet property="stationNameLabel" destination="Hx7-VD-F23" id="vdU-TA-GSe"/>
                         <outlet property="topBar" destination="GEW-Kp-OPL" id="lBH-9z-OrB"/>
